@@ -1,7 +1,11 @@
 import sqlite3
+import os
 
 def tabela_cartao():
-    conexao = sqlite3.connect('cartoes.db')
+    diretorio_atual = os.path.abspath(os.path.dirname(__file__))
+    caminho_bd = os.path.join(diretorio_atual, 'cartoes.db')
+
+    conexao = sqlite3.connect(caminho_bd)
     cursor = conexao.cursor()
 
     cursor.execute('''create table if not exists cartao (
@@ -16,7 +20,10 @@ def tabela_cartao():
     
     
 def verificar_cartao_existente(numero):
-    conexao = sqlite3.connect('cartoes.db')
+    diretorio_atual = os.path.abspath(os.path.dirname(__file__))
+    caminho_bd = os.path.join(diretorio_atual, 'cartoes.db')
+
+    conexao = sqlite3.connect(caminho_bd)
     cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM cartao WHERE numero=?", (numero,))
@@ -26,7 +33,10 @@ def verificar_cartao_existente(numero):
     return cartao is not None
 
 def inserir_cartao(nome, numero, data_validade, cvv):
-    conexao = sqlite3.connect('cartoes.db')
+    diretorio_atual = os.path.abspath(os.path.dirname(__file__))
+    caminho_bd = os.path.join(diretorio_atual, 'cartoes.db')
+
+    conexao = sqlite3.connect(caminho_bd)
     cursor = conexao.cursor()
 
     cursor.execute('''insert into cartao (nome, numero, data_validade, cvv)
@@ -36,6 +46,7 @@ def inserir_cartao(nome, numero, data_validade, cvv):
     conexao.close()
     
 def main():
+    tabela_cartao()
     print("== Formulário do Cartão ==")
     nome = input("Nome do titular do cartão: ")
     if not nome:
@@ -60,5 +71,4 @@ def main():
                         print("\nCartão salvo com sucesso!")
     
 if __name__ == "__main__":
-    tabela_cartao()
     main()
