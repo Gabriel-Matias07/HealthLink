@@ -3,8 +3,8 @@ import formulario_cartao
 def opcoes_pagamento():
     print("Escolha uma opção de pagamento:")
     print("1 - Cartão de crédito")
-    print("2 - Cartão de débito")
-    print("3 - PIX")
+    print("2 - Boleto")
+    print("3 - Transferência")
     
     opcao = input("Opção: ")
     
