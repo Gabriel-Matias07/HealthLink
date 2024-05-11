@@ -1,6 +1,9 @@
 import sqlite3
+import time
 
 def pegar_informacoes():
+
+    t = 3 #Da bliblioteca time
 
     print("--Digite seu telefone--")
     telefone = int(input())
@@ -32,7 +35,10 @@ def pegar_informacoes():
             str(input("Digite seu gênero: "))
     elif 'N' in alteracao:
         #Jogar informações no banco de dados
+        print("Realizando conexão...")
+        time.sleep(t)
         print("Inserindo no banco de dados...")
+        time.sleep(t)
         armazenar(telefone, endereco, data_nascimento, genero)
         print("Cadastro realizado com sucesso!")
         exit()
@@ -42,7 +48,10 @@ def pegar_informacoes():
     print("Alteração feita com sucesso!\n")
     print("Informações: \n")
     print(f"Telefone: {telefone}\n Endereço: {endereco}\n Data de Nascimento: {data_nascimento}\n Gênero: {genero}\n")
+    print("Realizando conexão...")
+    time.sleep(t)
     print("Inserindo no banco de dados...")
+    time.sleep(t)
 
     #Jogar informações no banco de dados
     armazenar(telefone, endereco, data_nascimento, genero)
