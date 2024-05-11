@@ -16,7 +16,7 @@ def pegar_informacoes():
     print("Deseja alterar alguma informação? S = Sim, N = Não")
     alteracao = str(input())
 
-    # Condição de alteração
+    #Condição de alteração
     
     if 'S' in alteracao:
         print("\n")
@@ -31,19 +31,39 @@ def pegar_informacoes():
         elif genero == '4':
             str(input("Digite seu gênero: "))
     elif 'N' in alteracao:
-        print("Cadastro realizado com sucesso")
         #Jogar informações no banco de dados
-        #armazenar()
-        pass
+        print("Inserindo no banco de dados...")
+        armazenar(telefone, endereco, data_nascimento, genero)
+        print("Cadastro realizado com sucesso!")
+        exit()
     else:
         return 'Inválido', None
     
     print("Alteração feita com sucesso!\n")
+    print("Informações: \n")
     print(f"Telefone: {telefone}\n Endereço: {endereco}\n Data de Nascimento: {data_nascimento}\n Gênero: {genero}\n")
-    #armazenar()
-pegar_informacoes()
+    print("Inserindo no banco de dados...")
+
+    #Jogar informações no banco de dados
+    armazenar(telefone, endereco, data_nascimento, genero)
+    print("Cadastro realizado com sucesso!")
 
 #Função para armazenar dados no banco de dados
 
-def armazenar():
-    sqlite3.connect("data_user_cadastro.db")
+def armazenar(telefone, endereco, nascimento, genero):
+    erro = False
+    try:
+        banco = sqlite3.connect("data_user_cadastro.db")
+        cursor = banco.cursor()
+
+        cursor.execute("CREATE TABLE IF NOT EXISTS data_user_cadastro(telefone, endereco, nascimento, genero)")
+        cursor.execute("INSERT INTO data_user_cadastro VALUES (?, ?, ?, ?)", (telefone, endereco, nascimento, genero))
+        banco.commit()
+        banco.close
+    except sqlite3.Error as error:
+        print(error)
+        erro = True
+    return erro
+
+#Chamando a função  (Será chamada no main.py)
+pegar_informacoes()
