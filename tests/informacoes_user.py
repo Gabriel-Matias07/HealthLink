@@ -59,7 +59,7 @@ def armazenar(telefone, endereco, nascimento, genero):
         cursor.execute("CREATE TABLE IF NOT EXISTS data_user_cadastro(telefone, endereco, nascimento, genero)")
         cursor.execute("INSERT INTO data_user_cadastro VALUES (?, ?, ?, ?)", (telefone, endereco, nascimento, genero))
         banco.commit()
-        banco.close
+        banco.close()
     except sqlite3.Error as error:
         print(error)
         erro = True
